@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wedding Invitation">
+  <title>Wedding Invitation - Divna & Nick</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="./index.html" title="Return to the homepage">Home</a></li>
+    <li><a href="./index.html#wedding-details" title="Wedding ceremony details">Wedding Ceremony</a></li>
+    <li><a href="./index.html#reception-details" title="Reception information">Reception</a></li>
+    <li><a href="./photos.html" title="Wedding photos">Pictures</a></li>
+    <li><a href="./blog.html" title="Read the blog">Blog</a></li>
+    <li><a href="./blog.html#mail" title="Mailling List">Mailing List</a></li>
+    <li><a href="./index.html#rsvp" title="RSVP to the wedding">RSVP</a></li>
+  </ul>
+</nav>
+
+<header>
+  <h1>Wedding Invitation</h1>
+  <p>We are so excited to share this special day with you!</p>
+
+  <section id="couple-intro">
+    <h2>Meet the Couple</h2>
+    <div id="couple-photo">
+      <img src="couple-photo.jpg" alt="Divna & Nick">
+    </div>
+    <p><strong>Divna & Nick</strong> invite you to celebrate their wedding!</p>
+    <button onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
+      RSVP Now
+    </button>
+  </section>
+</header>
+
+<section id="wedding-details">
+  <h2>The Wedding Ceremony</h2>
+  <p>Location: 2219 Summit Street, Columbus, Ohio</p>
+  <p>Date: Sunday, April 19, 2026 at 3:00 PM</p>
+  <p>
+    <a href="https://www.google.com/maps?q=2219+Summit+Street,+Columbus,+OH" target="_blank" 
+     onclick="window.location='maps://?q=2219+Summit+Street,+Columbus,+OH'; return true;">
+     Get Directions
+    </a>
+  </p>
+</section>
+
+<section id="reception-details">
+  <h2>The Reception</h2>
+  <p>Location: TBD - RSVP and we will send you email updates.</p>
+  <p>To cancel RSVP, please <a href="mailto:asdf@asdf.asdf">contact us through email</a></p>
+  <p>Date: Sunday, April 19, 2026 at 5:30 PM</p>
+</section>
+
+<section id="rsvp">
+  <h2>RSVP</h2>
+
+  <form id="rsvp-form">
+    <label>Email</label>
+    <input type="email" name="entry.12345678" required>
+
+    <label>Name</label>
+    <input type="text" name="entry.23456789" required>
+
+    <label>Number of Guests</label>
+    <input type="number" name="entry.34567890" min="0" required>
+
+    <label>Invite Code</label>
+    <input type="text" name="entry.45678901" required>
+
+    <button type="submit">Submit RSVP</button>
+  </form>
+
+  <div id="rsvp-message"></div>
+</section>
+
+<!-- Calendar Modal -->
+<div id="calendar-modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>RSVP confirmed! Add this event to your calendar?</h3>
+    <div class="calendar-buttons">
+      <button id="download-ics">Download ICS</button>
+      <button id="open-google">Open Google Calendar</button>
+      <button id="calendar-no">No Thanks</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Divna & Nick - All Rights Reserved</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const modal = document.getElementById('calendar-modal');
+
+  function showCalendarModal() {
+    modal.style.display = 'flex';
+  }
+
+  function closeCalendarModal() {
+    modal.style.display = 'none';
+  }
+
+  function downloadCalendarICS() {
+    const title = "Divna & Nick's Wedding";
+    const description = "We can't wait to celebrate with you!";
+    const location = "2219 Summit Street, Columbus, Ohio";
+
+    // IMPORTANT: use UTC times for calendar compatibility
+    const start = "20260419T200000Z";
+    const end   = "20260420T010000Z";
+
+    const icsContent =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:wedding-${Date.now()}@example.com
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').split('.')[0]}Z
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent.replace(/\n/g, '\r\n')], {
+      type: 'text/calendar;charset=utf-8'
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Wedding.ics';
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function openGoogleCalendar() {
+    const url =
+      'https://www.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent("Divna & Nick's Wedding") +
+      '&dates=20250612T150000Z/20250612T170000Z' +
+      '&details=' + encodeURIComponent("We can't wait to celebrate with you!") +
+      '&location=' + encodeURIComponent("2219 Summit Street, Columbus, Ohio");
+
+    window.open(url, '_blank');
+  }
+
+  document.getElementById('rsvp-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = document.getElementById('rsvp-message');
+    msg.textContent = 'Saving your RSVP...';
+
+    fetch('https://script.google.com/macros/s/AKfycbyFMx2LWz4Vvl4b6AqUyDeQrYmUiKIc4FeYLSwKxVMbtedHI6IjZyvplSWZyNrX9hZ_/exec', {
+      method: 'POST',
+      body: new FormData(e.target)
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.result === 'success') {
+        msg.textContent = 'RSVP submitted successfully!';
+        e.target.reset();
+        showCalendarModal();
+      } else {
+        msg.textContent = 'Error: ' + data.message;
+      }
+    })
+    .catch(() => {
+      msg.textContent = 'Server error. Please try again later.';
+    });
+  });
+
+  document.getElementById('download-ics').onclick = () => {
+    downloadCalendarICS();
+    closeCalendarModal();
+  };
+
+  document.getElementById('open-google').onclick = () => {
+    openGoogleCalendar();
+    closeCalendarModal();
+  };
+
+  document.getElementById('calendar-no').onclick = closeCalendarModal;
+
+});
+</script>
+
+</body>
+</html>

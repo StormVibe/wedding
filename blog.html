@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+
+<style>
+/* ====== Colors + Theme ====== */
+:root {
+  --bg: #121212;
+  --text: #f0f0f0;
+  --card: #1e1e1e;
+  --accent: #8A2BE2;
+  --border: #333;
+  --subtext: #aaa;
+}
+body.light {
+  --bg: #f4f4f4;
+  --text: #111;
+  --card: #ffffff;
+  --border: #ddd;
+  --subtext: #555;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ====== Header ====== */
+header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width:800px;
+  margin:0 auto 20px;
+}
+header .logo-container {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+header .logo-container img {
+  height: 100px;
+}
+
+/* ====== Navigation Menu ====== */
+nav {
+  background-color: var(--accent);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2em;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+nav a:hover {
+  background-color: rgba(122, 29, 183, 0.8);
+}
+
+/* ====== Blog Posts ====== */
+.post {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.post h2 {
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+.post .meta {
+  font-size: 0.9em;
+  color: var(--subtext);
+  margin-bottom: 0.8rem;
+}
+.read-more {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ====== Mailing List ====== */
+.mailinglist {
+  background: var(--card);
+  max-width: 600px;
+  margin: 40px auto 0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+input[type="email"] {
+  width: 100%;
+  padding: 0.7rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgba(122, 29, 183, 0.9);
+}
+
+/* ====== Modal ====== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal.show {
+  display: flex;
+}
+.modal-content {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+/* ====== Theme Toggle Slider ====== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 24px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+input:checked + .slider { background-color: var(--accent); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 24px; }
+.slider.round:before { border-radius: 50%; }
+
+/* ====== Mobile ====== */
+@media (max-width: 600px) {
+  input[type="email"] { width: 100%; }
+  header { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body class="dark">
+
+<!-- Header + Logo + Theme Toggle -->
+<header>
+  <div class="logo-container">
+    <img src="logo-dark.png" class="logo-dark" alt="Logo">
+    <img src="logo-light.png" class="logo-light" alt="Logo" style="display:none;">
+    <h1>Blog</h1>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="themeToggle" checked>
+    <span class="slider round"></span>
+  </label>
+</header>
+
+<!-- Navigation Menu -->
+<nav>
+  <ul>
+    <li><a href="./index.html" title="Return to the homepage">Home</a></li>
+    <li><a href="./index.html#wedding-details" title="Wedding ceremony details">Wedding Ceremony</a></li>
+    <li><a href="./index.html#reception-details" title="Reception information">Reception</a></li>
+    <li><a href="./photos.html" title="Wedding photos">Pictures</a></li>
+    <li><a href="./blog.html" title="Read the blog">Blog</a></li>
+    <li><a href="./blog.html#mail" title="Mailling List">Mailing List</a></li>
+    <li><a href="./index.html#rsvp" title="RSVP to the wedding">RSVP</a></li>
+  </ul>
+</nav>
+
+<div id="posts"></div>
+
+<!-- Mailing List -->
+<div class="mailinglist" id="mail">
+  <h2>Mailing List</h2>
+  <p>Subscribe to our mailing list for up-to-date info!</p>
+  <form id="mailForm">
+    <input type="email" name="email" placeholder="Email Address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p id="modalMessage"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+/* ====== Blog Posts ====== */
+const blogPosts = [
+  { title: "Visa Interview Scheduled", author:"Divna & Nick", date:"Jan 6, 2026", content: "The visa interview is scheduled on January 6th!" },
+  { title: "Wedding Planning Update", author:"Divna & Nick", date:"Dec 22, 2025", content: "We have our wedding date confirmed to be Apr 19th, 2026! We cannot wait!" },
+  { title: "USCIS Approved!", author:"Divna & Nick", date:"Jul 24, 2025", content: "USCIS Approved our application! We're so excited on getting one step closer to Divna's Visa approval!" },
+  { title: "USCIS Recieved Application", author:"Divna & Nick", date:"Nov 21, 2024", content: " The USCIS has officially received our application! It may take upwards of 8 months for them to finish the review. We will keep you posted here!" },
+  { title: "We're engaged!", author:"Divna & Nick", date:"Aug 22, 2024", content: " During my latest trip to Greece and Indonesia, we got engaged! We had a blast visiting monasteries in Greece, and then chilling in Bali. On my last day with Divna, I proposed and she said yes! Now we have to focus and get everything prepared for getting Divna over here!" }
+];
+const postsDiv = document.getElementById('posts');
+blogPosts.forEach((post, i) => {
+  const preview = post.content.slice(0,45);
+  const article = document.createElement('div');
+  article.className = 'post';
+  article.innerHTML = `
+    <h2>${post.title}</h2>
+    <div class="meta">By ${post.author} | ${post.date}</div>
+    <p id="text-${i}" data-full="${post.content}">${preview}...</p>
+    <button class="read-more" onclick="togglePost(${i})">Read more</button>
+  `;
+  postsDiv.appendChild(article);
+});
+function togglePost(i){
+  const p = document.getElementById(`text-${i}`);
+  const btn = p.nextElementSibling;
+  const full = p.dataset.full;
+  if(btn.textContent==='Read more'){
+    p.textContent = full;
+    btn.textContent = 'Show less';
+  } else {
+    p.textContent = full.slice(0,45)+'...';
+    btn.textContent = 'Read more';
+  }
+}
+
+/* ====== Mailing List ====== */
+const form = document.getElementById('mailForm');
+const modal = document.getElementById('modal');
+const modalMessage = document.getElementById('modalMessage');
+form.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const data = new FormData(form);
+  try{
+    const res = await fetch('https://script.google.com/macros/s/AKfycbybOhrzJNWd5trwUBJI3Vt5U_C-r-HQp2Zs70v61r0RpKT8sth3bSr5I1RjM5lpZEQ6Ig/exec', { method:'POST', body:data });
+    const json = await res.json();
+    modalMessage.textContent = json.result==='success' ? '✅ Successfully subscribed!' : '❌ Something went wrong.';
+    if(json.result==='success') form.reset();
+  }catch{
+    modalMessage.textContent = '❌ Network error.';
+  }
+  modal.classList.add('show');
+});
+function closeModal(){ modal.classList.remove('show'); }
+
+/* ====== Theme Toggle ====== */
+const themeToggle = document.getElementById('themeToggle');
+const darkLogo = document.querySelector('.logo-dark');
+const lightLogo = document.querySelector('.logo-light');
+themeToggle.addEventListener('change', ()=>{
+  document.body.classList.toggle('light');
+  if(document.body.classList.contains('light')){
+    darkLogo.style.display = 'none';
+    lightLogo.style.display = '';
+  } else {
+    darkLogo.style.display = '';
+    lightLogo.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>

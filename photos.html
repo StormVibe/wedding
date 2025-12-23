@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Photos - REDACTED_NAME_BOTH</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            text-align: center;
+            background-color: #cce7ff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #8A2BE2;
+            margin-bottom: 30px;
+        }
+
+        .gallery-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .photo {
+            display: none;
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(138, 43, 226, 0.8);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(122, 29, 183, 0.9);
+        }
+
+        .prev {
+            left: -60px;
+        }
+
+        .next {
+            right: -60px;
+        }
+
+        /* Navigation Menu Styles */
+        nav {
+            background-color: #8A2BE2;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav li {
+            display: inline;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(122, 29, 183, 0.8);
+        }
+
+        /* Adjust for smaller screens */
+        @media (max-width: 600px) {
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 1em;
+            }
+            .prev { left: 10px; }
+            .next { right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./index.html#wedding-details">Wedding Ceremony</a></li>
+            <li><a href="./index.html#reception-details">Reception</a></li>
+            <li><a href="./photos.html">Pictures</a></li>
+            <li><a href="./blog/blog.html">Blog</a></li>
+            <li><a href="./index.html#rsvp">RSVP</a></li>
+        </ul>
+    </nav>
+
+    <h1>Wedding Photo Gallery</h1>
+
+    <div class="gallery-container">
+        <!-- Gallery images -->
+        <img class="photo" src="photos/1.jpg" alt="Photo 1">
+        <img class="photo" src="photos/2.jpg" alt="Photo 2">
+        <img class="photo" src="photos/3.jpg" alt="Photo 3">
+        <img class="photo" src="photos/4.jpg" alt="Photo 4">
+        <img class="photo" src="photos/5.jpg" alt="Photo 5">
+        <img class="photo" src="photos/6.jpg" alt="Photo 6">
+
+        <!-- Navigation buttons -->
+        <button class="nav-button prev" onclick="prevPhoto()">❮</button>
+        <button class="nav-button next" onclick="nextPhoto()">❯</button>
+    </div>
+
+    <script>
+        let currentPhoto = 0;
+        const photos = document.querySelectorAll('.photo');
+
+        function showPhoto(index) {
+            photos.forEach((photo, i) => {
+                photo.style.display = (i === index) ? 'block' : 'none';
+            });
+        }
+
+        function nextPhoto() {
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            showPhoto(currentPhoto);
+        }
+
+        function prevPhoto() {
+            currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+            showPhoto(currentPhoto);
+        }
+
+        // Show the first photo on load
+        showPhoto(currentPhoto);
+    </script>
+
+</body>
+</html>
