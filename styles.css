@@ -1,131 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap');
+
+:root {
+  --forest: #3f6f63;
+  --olive: #7f9f8c;
+  --sage: #a7c4b2;
+  --sky: #d8ebf2;
+  --stone: #f4f6f5;
+  --gold: #c4a75a;
+  --text-dark: #243331;
+}
+
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===== BODY BACKGROUND ===== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #cce7ff; /* Light blue background */
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-dark);
+  background:
+    linear-gradient(
+      rgba(255,255,255,0.85),
+      rgba(255,255,255,0.85)
+    ),
+    url("https://divna-nick.org/photos/1.jpg") center / cover fixed;
+  min-height: 100vh;
+  text-align: center;
 }
 
-
+/* ===== NAV ===== */
 nav {
-  background-color: #8A2BE2;
-  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(63, 111, 99, 0.95);
+  padding: 14px 0;
 }
 
 nav ul {
   list-style: none;
 }
 
-nav ul li {
-  display: inline;
-  margin-right: 20px;
+nav li {
+  display: inline-block;
+  margin: 0 18px;
 }
 
 nav a {
+  color: #ffffff;
   text-decoration: none;
-  color: #fff;
-  font-size: 1.2em;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
 }
 
 nav a:hover {
-  opacity: 0.8;
+  color: var(--gold);
 }
 
-header, section {
-  margin-bottom: 40px;
+/* ===== HERO HEADER ===== */
+header {
+  padding: 140px 20px 100px;
+  background:
+    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+    url("https://divna-nick.org/title.jpg") center / cover no-repeat;
+  color: #ffffff;
 }
 
-#couple-intro {
-  padding: 20px;
-  border-radius: 10px;
+header h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.2rem;
+  margin-bottom: 10px;
+  color: #ffffff;
 }
 
+header p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  max-width: 650px;
+  margin: 0 auto 45px;
+  color: #ffffff;
+}
+
+/* ===== CONTENT SECTIONS ===== */
+section {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 60px;
+  background: var(--stone);
+  border-radius: 32px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.15);
+  color: var(--text-dark);
+}
+
+/* Force readable text everywhere inside sections */
+section * {
+  color: var(--text-dark);
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  margin-bottom: 28px;
+  color: var(--forest);
+}
+
+/* ===== COUPLE PHOTO ===== */
 #couple-photo img {
+  width: 230px;
+  height: 230px;
+  object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 20px;
-  max-width: 100%;
-  height: auto;
+  border: 6px solid #ffffff;
+  box-shadow:
+    0 0 0 6px var(--sage),
+    0 20px 45px rgba(0,0,0,.25);
+  margin: 30px 0;
 }
 
+/* ===== BUTTONS ===== */
 button {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  color: #fff;
-  background-color: #8A2BE2;
+  background: linear-gradient(135deg, var(--forest), var(--olive));
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 40px;
+  padding: 15px 40px;
+  font-size: 1.05rem;
   cursor: pointer;
-  margin-top: 20px;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #7a1db7;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(63,111,99,.45);
 }
 
+/* ===== GET DIRECTIONS BUTTON ===== */
+.directions a {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--olive), var(--forest));
+  border-radius: 40px;
+  box-shadow: 0 8px 25px rgba(63,111,99,.3);
+  transition: all 0.3s ease;
+  margin-top: 25px;
+}
+
+.directions a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(63,111,99,.45);
+}
+
+
+.directions a:hover {
+  background-color: #7a1db7; /* Slightly darker on hover */
+  transform: translateY(-2px);
+}
+
+
+/* ===== LINKS ===== */
+section a {
+  color: var(--forest);
+  font-weight: 500;
+}
+
+section a:hover {
+  color: var(--gold);
+}
+
+/* ===== RSVP FORM ===== */
 #rsvp-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
+  display: grid;
+  gap: 18px;
+  max-width: 480px;
   margin: 0 auto;
   text-align: left;
 }
 
-#rsvp input {
-  padding: 10px;
-  font-size: 1.1em;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
+#rsvp-form label {
+  font-weight: 500;
 }
 
+#rsvp-form input {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #cfd8d5;
+  font-size: 1rem;
+  background: #ffffff;
+  color: var(--text-dark);
+}
+
+#rsvp-form input:focus {
+  outline: none;
+  border-color: var(--forest);
+  box-shadow: 0 0 0 3px rgba(63,111,99,.25);
+}
+
+/* ===== RSVP MESSAGE ===== */
+#rsvp-message {
+  margin-top: 25px;
+  font-weight: 500;
+  color: var(--forest);
+}
+
+/* ===== MODAL ===== */
 .modal {
-  display: none; 
-  position: fixed; 
-  top: 0; left: 0; 
-  width: 100%; height: 100%; 
-  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 400px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 30px;
+  max-width: 420px;
   width: 90%;
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  color: var(--text-dark);
 }
 
-.calendar-buttons button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #8A2BE2;
-  color: #fff;
-}
-
-.calendar-buttons button:hover {
-  background-color: #7a1db7;
-}
-
+/* ===== FOOTER ===== */
 footer {
-  text-align: center;
-  margin-top: 50px;
-  color: #888;
+  margin-top: 90px;
+  padding: 35px;
+  font-size: 0.9rem;
+  color: #4a5c57;
 }
+/* ===== FIX: Meet the Couple text inside header ===== */
+
+#couple-intro {
+  background: rgba(244, 246, 245, 0.9);
+  border-radius: 30px;
+  padding: 50px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* Force ALL text inside Meet the Couple to be dark */
+#couple-intro,
+#couple-intro p,
+#couple-intro strong,
+#couple-intro h2 {
+  color: #243331 !important;
+}
+
