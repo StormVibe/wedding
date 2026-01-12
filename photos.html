@@ -3,103 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Photos - REDACTED_NAME_BOTH</title>
+    <title>Wedding Photos - Divna & Nick</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            text-align: center;
-            background-color: #cce7ff;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+	@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap');
 
-        h1 {
-            color: #8A2BE2;
-            margin-bottom: 30px;
-        }
+	:root {
+	  --forest: #3f6f63;
+	  --olive: #7f9f8c;
+	  --sage: #a7c4b2;
+	  --stone: #f4f6f5;
+	  --gold: #c4a75a;
+	  --text-dark: #243331;
+	}
 
-        .gallery-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+	/* ===== RESET ===== */
+	* {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	}
 
-        .photo {
-            display: none;
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+	/* ===== BODY ===== */
+	body {
+	  font-family: 'Montserrat', sans-serif;
+	  color: var(--text-dark);
+	  text-align: center;
+	  padding: 30px 20px;
+	  background:
+		linear-gradient(
+		  rgba(255,255,255,0.88),
+		  rgba(255,255,255,0.88)
+		),
+		url("https://divna-nick.org/title.jpg")
+		  center / cover fixed;
+	  min-height: 100vh;
+	}
 
-        .nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(138, 43, 226, 0.8);
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+	/* ===== NAV (MATCHES MAIN SITE) ===== */
+	nav {
+	  background: rgba(63, 111, 99, 0.95);
+	  padding: 14px 0;
+	  margin-bottom: 60px;
+	  border-radius: 0;
+	}
 
-        .nav-button:hover {
-            background-color: rgba(122, 29, 183, 0.9);
-        }
+	nav ul {
+	  list-style: none;
+	}
 
-        .prev {
-            left: -60px;
-        }
+	nav li {
+	  display: inline-block;
+	  margin: 0 18px;
+	}
 
-        .next {
-            right: -60px;
-        }
+	nav a {
+	  color: #ffffff;
+	  text-decoration: none;
+	  font-size: 1rem;
+	  letter-spacing: 0.4px;
+	}
 
-        /* Navigation Menu Styles */
-        nav {
-            background-color: #8A2BE2;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+	nav a:hover {
+	  color: var(--gold);
+	}
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+	/* ===== PAGE TITLE ===== */
+	h1 {
+	  font-family: 'Playfair Display', serif;
+	  font-size: 2.6rem;
+	  color: var(--forest);
+	  margin-bottom: 40px;
+	}
 
-        nav li {
-            display: inline;
-        }
+	/* ===== GALLERY CONTAINER ===== */
+	.gallery-container {
+	  position: relative;
+	  max-width: 900px;
+	  margin: 0 auto;
+	  padding: 40px;
+	  background: rgba(244, 246, 245, 0.9);
+	  border-radius: 32px;
+	  box-shadow: 0 30px 70px rgba(0,0,0,.15);
+	}
 
-        nav a {
-            text-decoration: none;
-            color: white;
-            font-size: 1.2em;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+	/* ===== PHOTOS ===== */
+	.photo {
+	  display: none;
+	  width: 100%;
+	  max-height: 520px;
+	  object-fit: cover;
+	  border-radius: 24px;
+	  box-shadow: 0 20px 45px rgba(0,0,0,.25);
+	}
 
-        nav a:hover {
-            background-color: rgba(122, 29, 183, 0.8);
-        }
+	/* ===== NAV BUTTONS ===== */
+	.nav-button {
+	  position: absolute;
+	  top: 50%;
+	  transform: translateY(-50%);
+	  background: linear-gradient(135deg, var(--forest), var(--olive));
+	  color: #ffffff;
+	  border: none;
+	  padding: 14px 22px;
+	  font-size: 1.4rem;
+	  border-radius: 50%;
+	  cursor: pointer;
+	  box-shadow: 0 10px 25px rgba(63,111,99,.4);
+	  transition: all 0.3s ease;
+	}
 
-        /* Adjust for smaller screens */
-        @media (max-width: 600px) {
-            .nav-button {
-                padding: 10px 15px;
-                font-size: 1em;
-            }
-            .prev { left: 10px; }
-            .next { right: 10px; }
-        }
+	.nav-button:hover {
+	  transform: translateY(-50%) scale(1.05);
+	  box-shadow: 0 14px 35px rgba(63,111,99,.5);
+	}
+
+	.prev {
+	  left: -70px;
+	}
+
+	.next {
+	  right: -70px;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 700px) {
+	  .gallery-container {
+		padding: 25px;
+	  }
+
+	  .nav-button {
+		padding: 10px 16px;
+		font-size: 1.2rem;
+	  }
+
+	  .prev { left: 10px; }
+	  .next { right: 10px; }
+	}
+
     </style>
 </head>
 <body>
@@ -107,12 +148,12 @@
     <!-- Navigation Menu -->
     <nav>
         <ul>
-            <li><a href="https://divna-nick.webbs.info/">Home</a></li>
-            <li><a href="https://divna-nick.webbs.info/#wedding-details">Wedding Ceremony</a></li>
-            <li><a href="https://divna-nick.webbs.info/#reception-details">Reception</a></li>
-            <li><a href="https://divna-nick.webbs.info/photos">Pictures</a></li>
-            <li><a href="https://divna-nick.webbs.info/blog">Blog</a></li>
-            <li><a href="https://divna-nick.webbs.info/#rsvp">RSVP</a></li>
+            <li><a href="https://divna-nick.org/">Home</a></li>
+            <li><a href="https://divna-nick.org/#wedding-details">Wedding Ceremony</a></li>
+            <li><a href="https://divna-nick.org/#reception-details">Reception</a></li>
+            <li><a href="https://divna-nick.org/photos">Pictures</a></li>
+            <li><a href="https://divna-nick.org/blog">Blog</a></li>
+            <li><a href="https://divna-nick.org/#rsvp">RSVP</a></li>
         </ul>
     </nav>
 
@@ -120,12 +161,12 @@
 
     <div class="gallery-container">
         <!-- Gallery images -->
-        <img class="photo" src="photos/1.jpg" alt="Photo 1">
-        <img class="photo" src="photos/2.jpg" alt="Photo 2">
-        <img class="photo" src="photos/3.jpg" alt="Photo 3">
-        <img class="photo" src="photos/4.jpg" alt="Photo 4">
-        <img class="photo" src="photos/5.jpg" alt="Photo 5">
-        <img class="photo" src="photos/6.jpg" alt="Photo 6">
+        <img class="photo" src="https://divna-nick.org/photos/1.jpg" alt="Photo 1">
+        <img class="photo" src="https://divna-nick.org/photos/2.jpg" alt="Photo 2">
+        <img class="photo" src="https://divna-nick.org/photos/3.jpg" alt="Photo 3">
+        <img class="photo" src="https://divna-nick.org/photos/4.jpg" alt="Photo 4">
+        <img class="photo" src="https://divna-nick.org/photos/5.jpg" alt="Photo 5">
+        <img class="photo" src="https://divna-nick.orgphotos/6.jpg" alt="Photo 6">
 
         <!-- Navigation buttons -->
         <button class="nav-button prev" onclick="prevPhoto()">❮</button>
