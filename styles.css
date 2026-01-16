@@ -185,22 +185,76 @@ section a:hover {
 }
 
 #rsvp-form label {
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--forest);
 }
 
-#rsvp-form input {
+#rsvp-form input,
+#rsvp-form select {
   padding: 14px;
   border-radius: 14px;
   border: 1px solid #cfd8d5;
   font-size: 1rem;
   background: #ffffff;
   color: var(--text-dark);
+  transition: all 0.3s ease;
 }
 
-#rsvp-form input:focus {
+/* ===== Adjusted Label and Input Field Sizes ===== */
+#rsvp-form label.email-opt-in {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+#rsvp-form input,
+#rsvp-form select {
+  font-size: 1.1rem; /* Make the fields a bit larger */
+  width: 100%;
+}
+
+#rsvp-form input:focus,
+#rsvp-form select:focus {
   outline: none;
   border-color: var(--forest);
   box-shadow: 0 0 0 3px rgba(63,111,99,.25);
+  transform: translateY(-2px); /* Slight lift effect on focus */
+}
+
+#rsvp-form input:hover,
+#rsvp-form select:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(63,111,99,.45); /* Smooth hover shadow */
+}
+
+/* ===== EMAIL OPT-IN ===== */
+#email-wrapper {
+  display: none; /* Hide the email input by default */
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+#email-wrapper input[type="email"] {
+  font-size: 1.1rem;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #cfd8d5;
+  background: #ffffff;
+  color: var(--text-dark);
+}
+
+/* ===== ADDITIONAL FORM STYLING ===== */
+#rsvp-form select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cil_Arrow_down.svg/64px-Cil_Arrow_down.svg.png');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+#rsvp-form select[name="entry.diet"] {
+  width: 100%;
 }
 
 /* ===== RSVP MESSAGE ===== */
@@ -238,8 +292,8 @@ footer {
   font-size: 0.9rem;
   color: #4a5c57;
 }
-/* ===== FIX: Meet the Couple text inside header ===== */
 
+/* ===== FIX: Meet the Couple text inside header ===== */
 #couple-intro {
   background: rgba(244, 246, 245, 0.9);
   border-radius: 30px;
@@ -255,4 +309,3 @@ footer {
 #couple-intro h2 {
   color: #243331 !important;
 }
-

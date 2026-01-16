@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Wedding Invitation">
-  <title>Wedding Invitation - Divna & Nick</title>
+  <title>Divna & Nick Wedding Invite</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -58,21 +58,47 @@
   <h2>RSVP</h2>
 
   <form id="rsvp-form">
-    <label>Email</label>
-    <input type="email" name="entry.12345678" required>
+    
+    <!-- Email Updates Selection -->
+    <label class="email-opt-in">Would you like to receive email updates?</label>
+    <select id="email-opt-in" name="entry.mailto" required>
+      <option value="" selected >Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
 
+    <!-- Email Field (Hidden by Default) -->
+    <div id="email-wrapper">
+      <label>Email</label>
+      <input type="email" id="email-field" name="entry.email">
+    </div>
+
+    <!-- Name Field -->
     <label>Name</label>
-    <input type="text" name="entry.23456789" required>
+    <input type="text" name="entry.name" required>
 
+    <!-- Guest Number Field -->
     <label>Number of Guests</label>
-    <input type="number" name="entry.34567890" min="0" required>
+    <input type="number" name="entry.guest" min="0" required>
 
+    <!-- Dietary Needs Field -->
+    <label>Dietary Needs</label>
+    <select name="entry.diet" required>
+      <option value="none">None</option>
+      <option value="gluten-free">Gluten-Free</option>
+      <option value="vegetarian">Vegetarian</option>
+      <option value="vegan">Vegan</option>
+    </select>
+
+    <!-- Invite Code Field -->
     <label>Invite Code</label>
-    <input type="text" name="entry.45678901" required>
+    <input type="text" name="entry.invite" required>
 
+    <!-- Submit Button -->
     <button type="submit">Submit RSVP</button>
   </form>
 
+  <!-- RSVP Message (Display After Submission) -->
   <div id="rsvp-message"></div>
 </section>
 
@@ -96,7 +122,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const APP_SCRIPT_URL =
-    'https://script.google.com/macros/s/AKfycbxrFAx1bXDV_zncwoCiTuzADfKqbIJWcgY8KG-UwGaot0k7SdMbAgDGGju0gBdHgn-6/exec';
+    'https://script.google.com/macros/s/AKfycbzPwSR7w53y8OZX0LSeNPbVBgLb0H61Q_cbLvjpbSCqhvnbx6-uBEA-izIx5j9EOwu_/exec';
 
   /* ========= JWT ========= */
 
@@ -178,7 +204,7 @@ END:VCALENDAR`;
 
       try {
         const formData = new FormData(e.target);
-        const invite = formData.get('entry.45678901');
+        const invite = formData.get('entry.invite');
 
         const jwt = await fetchJWT(invite);
         formData.append('jwt', jwt);
@@ -218,6 +244,33 @@ END:VCALENDAR`;
   document.getElementById('calendar-no').onclick = closeCalendarModal;
 
 });
+const emailOpt = document.getElementById('email-opt-in');
+const emailWrap = document.getElementById('email-wrapper');
+const emailField = document.getElementById('email-field');
+
+emailOpt.addEventListener('change', () => {
+  if (emailOpt.value === 'yes') {
+    emailWrap.style.display = 'block';
+    emailField.required = true;
+  } else {
+    emailWrap.style.display = 'none';
+    emailField.required = false;
+    emailField.value = '';
+  }
+});
+
+document.getElementById('email-opt-in').addEventListener('change', function () {
+  const emailWrapper = document.getElementById('email-wrapper');
+  const emailOptIn = this.value;
+  
+  if (emailOptIn === 'yes') {
+    emailWrapper.style.display = 'block';
+  } else {
+    emailWrapper.style.display = 'none';
+  }
+});
+
+
 </script>
 
 </body>
