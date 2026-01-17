@@ -28,7 +28,7 @@
     <button onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">
       RSVP Now
     </button>
-    <h2>Meet the Couple</h2>
+    <h3 id="countdown">Loading countdown...</h3>
     <div id="couple-photo">
       <img src="couple-photo.jpg" alt="Divna & Nick">
     </div>
@@ -39,7 +39,7 @@
 <section id="wedding-details">
   <h2>The Wedding Ceremony</h2>
   <p><strong>Date:</strong> Sunday, April 19, 2026 at 3:30 PM</p><br>
-  <p><strong>Location:</strong> St Gregory of Nyssa Orthodox Christian Church<br>          2219 Summit St. Columbus, Ohio </p>
+  <p><strong>Location:</strong> St Gregory of Nyssa Orthodox Christian Church<br> 2219 Summit St. Columbus, Ohio </p>
   <div class="directions">
 	<a href="https://www.google.com/maps/place/?q=place_id:ChIJF3ld-66OOIgRk9w2QbjoCXI" target="_blank">
     Get Directions
@@ -199,11 +199,17 @@ END:VCALENDAR`;
     .addEventListener('submit', async e => {
       e.preventDefault();
 
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
       const msg = document.getElementById('rsvp-message');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
       msg.textContent = 'Securing your invitation...';
 
       try {
-        const formData = new FormData(e.target);
+        const formData = new FormData(form);
         const invite = formData.get('entry.invite');
 
         const jwt = await fetchJWT(invite);
@@ -220,16 +226,36 @@ END:VCALENDAR`;
 
         if (data.result === 'success') {
           msg.textContent = 'RSVP submitted successfully! Check your email in 5 minutes (might show up in spam)';
-          e.target.reset();
+          form.reset();
           showCalendarModal();
+
+          submitBtn.textContent = 'RSVP Submitted';
         } else {
           msg.textContent = 'Error: ' + data.message;
+
+          if (
+            data.message === 'Missing invite' ||
+            data.message === 'Server error'
+          ) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit RSVP';
+          }
         }
 
       } catch (err) {
-        msg.textContent = err.message || 'Server error';
+        const errorMsg = err.message || 'Server error';
+        msg.textContent = errorMsg;
+
+        if (
+          errorMsg === 'Missing invite' ||
+          errorMsg === 'Server error'
+        ) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit RSVP';
+        }
       }
     });
+
 
   document.getElementById('download-ics').onclick = () => {
     downloadCalendarICS();
@@ -270,6 +296,28 @@ document.getElementById('email-opt-in').addEventListener('change', function () {
   }
 });
 
+  /* ========= COUNTDOWN ========= */
+
+  const weddingDate = new Date('2026-04-19T15:30:00');
+  const countdownEl = document.getElementById('countdown');
+
+  if (countdownEl) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const diffTime = weddingDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 1) {
+      countdownEl.innerHTML = `<span>${diffDays}</span> days to go`;
+    } else if (diffDays === 1) {
+      countdownEl.innerHTML = `<span>1</span> day to go`;
+    } else if (diffDays === 0) {
+      countdownEl.innerHTML = `🎉 <span>Today’s the day!</span> 🎉`;
+    } else {
+      countdownEl.innerHTML = `💍 <span>Just Married</span> 💍`;
+    }
+  }
 
 </script>
 
