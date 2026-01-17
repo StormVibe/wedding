@@ -261,7 +261,7 @@ section a:hover {
 #rsvp-form select {
   appearance: none;
   cursor: pointer;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cil_Arrow_down.svg/64px-Cil_Arrow_down.svg.png');
+  background-image: url('https://divna-nick.org/arrow-down.svg');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;

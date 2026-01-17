@@ -79,7 +79,7 @@
 
     <!-- Guest Number Field -->
     <label>Number of Guests</label>
-    <input type="number" name="entry.guest" min="0" required>
+    <input type="number" name="entry.guest" min="1" required>
 
     <!-- Dietary Needs Field -->
     <label>Dietary Needs</label>
@@ -296,28 +296,33 @@ document.getElementById('email-opt-in').addEventListener('change', function () {
   }
 });
 
-  /* ========= COUNTDOWN ========= */
 
-  const weddingDate = new Date('2026-04-19T15:30:00');
-  const countdownEl = document.getElementById('countdown');
+/* ========= COUNTDOWN ========= */
 
-  if (countdownEl) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+const weddingDate = new Date('2026-04-19T15:30:00'); // actual ceremony time
+const countdownEl = document.getElementById('countdown');
 
-    const diffTime = weddingDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+if (countdownEl) {
+  const now = new Date();
 
+  const diffTime = weddingDate - now; // difference in milliseconds
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffTime > 0) {
+    // wedding is in the future
     if (diffDays > 1) {
       countdownEl.innerHTML = `<span>${diffDays}</span> days to go`;
     } else if (diffDays === 1) {
       countdownEl.innerHTML = `<span>1</span> day to go`;
-    } else if (diffDays === 0) {
-      countdownEl.innerHTML = `🎉 <span>Today’s the day!</span> 🎉`;
     } else {
-      countdownEl.innerHTML = `💍 <span>Just Married</span> 💍`;
+      // less than 1 day remaining
+      countdownEl.innerHTML = `🎉 <span>Today’s the day!</span> 🎉`;
     }
+  } else {
+    // wedding has passed
+    countdownEl.innerHTML = `💍 <span>Just Married</span> 💍`;
   }
+}
 
 </script>
 
